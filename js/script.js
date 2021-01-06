@@ -1,19 +1,12 @@
 $(document).ready(function() {
 
-    function inserir() {
-
-        $("#form_cadastro").validate({
-            submitHandler: function(form) {
-                $("input").each(function() {
-                    console.log($(this).val());
-                    return;
-                });
-            }
+    $("form").submit(function(e) {
+        e.preventDefault();
+        console.log("dados corretos")
+        $("input").each(function() {
+            console.log($(this).val());
+            return;
         });
-    }
-
-    $("#btn_salvar").click(function() {
-        inserir();
     });
 
     $("#cpf").mask("999.999.999-99");
