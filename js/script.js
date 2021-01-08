@@ -33,7 +33,6 @@ $(document).ready(function() {
     }
 
     $("#cep").blur(function() {
-
         //Nova variável "cep" somente com numeros.
         var cep = $(this).val().replace(/\D/g, '');
 
@@ -57,13 +56,11 @@ $(document).ready(function() {
                         if (dados.logradouro) {
                             $("#logradouro").val(dados.logradouro);
                         }
-
                     },
                     error: function() {
                         //Alguns CEPS nao estao disponiveis como eh o caso do 97542430 entao removi a msg de erro e deixei o cep igual a como o usuario digitou 
                     }
                 });
-
 
             } else {
                 //cep é inválido.
@@ -169,5 +166,7 @@ $(document).ready(function() {
             $(element).parents('.form-group').addClass('has-feedback has-success');
         }
     });
+
+
 
 });
