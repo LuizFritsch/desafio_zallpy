@@ -8,6 +8,8 @@
     <meta name='viewport ' content='width=device-width, initial-scale=1 '>
     <!--Import [ REQUIRED ]-->
 
+    <!--Import Datatable css [ REQUIRED ]-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 
     <!--Import Bootstrap 4.0.0 [ REQUIRED ]-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -20,7 +22,7 @@
             <h2>Desafio 2</h2>
         </div>
 
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-8 form-group">
                 <input type="hidden">
             </div>
@@ -32,21 +34,61 @@
                 <button id="btn_pesquisar_repositorios" class="align-self-end">Pesquisar</button>
             </div>
         </div>
-        <div class="row">
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome do repositório</th>
-      <th scope="col">Abrir</th>
-      <th scope="col">Download</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-  </tbody>
-</table>
+        <div class="row text-center">
+            <table class="table" id="tabela_repositorios">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome do repositório</th>
+                        <th scope="col">Selecionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
         </div>
+        <hr class="my-4">
+        <div class="row col-md-12 form-group">
+            <h3 id="contrib">Contribuidores</h3>
+        </div>
+        <div id="contribuidores">
+            <div class="row text-center">
+                <table class="table" id="tabela_contribuidores">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Numero de contribuicoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row col-md-12 form-group">
+            <h3 id="contrib">Contribuidores</h3>
+        </div>
+        <div id="contribuidores">
+            <div class="row text-center">
+                <table class="table" id="tabela_issues">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Numero de contribuicoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
     </div>
 
 
@@ -73,6 +115,9 @@
 
     <!--Sweet Alerts [ REQUIRED ]-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <!--JS Datatable [ REQUIRED ]-->
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 
 </body>
 
