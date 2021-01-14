@@ -34,8 +34,8 @@
                 <button id="btn_pesquisar_repositorios" class="align-self-end">Pesquisar</button>
             </div>
         </div>
-        <div class="row text-center">
-            <table class="table" id="tabela_repositorios">
+        <div class="row text-center" style="overflow-x:auto;">
+            <table class="table table-bordered table-hover toggle-circle default footable-loaded footable" id="tabela_repositorios">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -53,33 +53,35 @@
             <h3 id="contrib">Contribuidores</h3>
         </div>
         <div id="contribuidores">
-            <div class="row text-center">
-                <table class="table" id="tabela_contribuidores">
+            <div class="row text-center" style="overflow-x:auto;">
+                <table class="table table-bordered table-hover toggle-circle default footable-loaded footable" id="tabela_contribuidores">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
+                            <th scope="col">Foto</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Numero de contribuicoes</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
+                        
                     </tbody>
                 </table>
             </div>
         </div>
         <hr class="my-4">
         <div class="row col-md-12 form-group">
-            <h3 id="contrib">Contribuidores</h3>
+            <h3 id="iss">Issues</h3>
         </div>
-        <div id="contribuidores">
-            <div class="row text-center">
-                <table class="table" id="tabela_issues">
+        <div id="issues">
+            <div class="row text-center" style="overflow-x:auto;">
+                <table class="table table-bordered table-hover toggle-circle default footable-loaded footable" id="tabela_issues">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
+                            <th scope="col">Titulo</th>
                             <th scope="col">Numero de contribuicoes</th>
+                            <th scope="col">Visualizar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,7 +90,29 @@
                 </table>
             </div>
         </div>
-        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Issue</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Descrição:</h4>
+                    <div class="row col-md-12" id="descricao">
+                        
+                    </div>
+                    <h4>Comentários:</h4>
+                    <div class="row col-md-12" id="comentarios">
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

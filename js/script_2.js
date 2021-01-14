@@ -10,6 +10,14 @@ $(document).ready(function() {
     var contribuidores;
     var dt_contribuidores;
 
+    var issue;
+    var issues;
+    var dt_issues;
+
+    var comentarios;
+
+    var modal = $("#exampleModal");
+
     $("#btn_pesquisar_repositorios").click(function(e) {
         e.preventDefault();
         nome_usuario = $("#nome_usuario").val();
@@ -72,26 +80,59 @@ $(document).ready(function() {
 
         repositorio = row.data();
 
-        /**console.log('-------------');
-        console.log(repositorio);
-        console.log('-------------');
-
-        console.log('issuesissuesissuesissuesissuesissuesissuesissues');
-        console.log(repositorio.has_issues);
-        console.log('issuesissuesissuesissuesissuesissuesissuesissues');
-**/
-
         if (repositorio.has_issues) {
             $.ajax({
                 dataType: "json",
                 url: repositorio.url + "/issues",
                 success: function(dados) {
-                    console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-                    console.log(dados);
-                    console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+                    if (dados) {
+
+                        $("#iss").html("issues do repositorio " + repositorio.name);
+
+                        if (dt_issues) {
+                            dt_issues.destroy();
+                        }
+
+                        issues = dados;
+
+                        console.log(issues);
+
+                        dt_issues = $('#tabela_issues').DataTable({
+                            "language": {
+                                "url": "/js/js_tabela_pt_br.json"
+                            },
+                            data: issues,
+                            responsive: true,
+                            'columns': [{
+                                    data: 'id'
+                                },
+                                {
+                                    data: 'title'
+                                },
+                                {
+                                    data: "closed_at",
+                                    render: function(data, type, row) {
+                                        if (data == null) {
+                                            return '<span class="label label-success">Ativa</span>';
+                                        } else {
+                                            return '<span class="label label-danger">Inativa</span>';
+                                        }
+                                    }
+                                },
+                                {
+                                    data: null,
+                                    render: function(data, type, row) {
+                                        return '<button class="btn btn-primary btn_selecionar_issue" value="' + data.id + '">Visualizar Issue</button>';
+                                    }
+                                },
+                            ]
+                        });
+                    } else {
+                        dt_issues.destroy();
+                    }
                 },
                 error: function(erro) {
-                    dt_contribuidores.clear().draw();
+                    dt_issues.clear().draw();
                     console.log(erro);
                 }
             });
@@ -104,22 +145,21 @@ $(document).ready(function() {
                 return;
             });
         }
+
         $.ajax({
             dataType: "json",
             url: repositorio.contributors_url,
             success: function(dados) {
+
                 if (dados) {
+
                     $("#contrib").html("Contribuidores do repositorio " + repositorio.name);
+
                     if (dt_contribuidores) {
                         dt_contribuidores.destroy();
                     }
-                    /**
-                     * console.log('%%%%%%%%%%');
-                     * console.log(dados);
-                     * console.log('%%%%%%%%%%');
-                     */
+
                     contribuidores = dados;
-                    //$("#tabela_contribuidores").html("");
 
                     dt_contribuidores = $('#tabela_contribuidores').DataTable({
                         "language": {
@@ -129,6 +169,13 @@ $(document).ready(function() {
                         responsive: true,
                         'columns': [{
                                 data: 'id'
+                            },
+                            {
+                                data: "avatar_url",
+                                render: function(data, type, row) {
+                                    return '<img style="max-height:50px;max-width:50px" class="rounded-circle"  src="' + data + '"/>';
+                                }
+
                             },
                             {
                                 data: 'login'
@@ -156,11 +203,39 @@ $(document).ready(function() {
             }
         });
 
-        ///repos/{owner}/{repo}/issues
 
     });
 
+    $('#tabela_issues tbody').on('click', 'tr button.btn_selecionar_issue', function() {
+        tr = $(this).closest('tr');
 
+        row = dt_issues.row(tr);
 
+        issue = row.data();
+
+        comentarios = '';
+
+        $('#comentarios').html('')
+
+        if (issue.comments > 0) {
+            $.ajax({
+                dataType: "json",
+                type: 'GET',
+                url: issue.comments_url,
+                crossDomain: true,
+                success: function(dados) {
+                    $.each(dados, function(key, value) {
+                        comentarios += "<div class='row form-group col-md-12'><label for='comentario_" + key + "' class='control-label'>" + value.user.login + "</label><input type='text' class='form-control' id='comentario_" + key + "' value='" + value.body + "' readonly></div>";
+                    });
+                    $('#comentarios').append(comentarios)
+                }
+            });
+        } else {
+            comentarios = "<div class='row form-group col-md-12'><p>Não há comentarios nesta issue...</p></div>"
+            $('#comentarios').append(comentarios)
+        }
+        $("#descricao").html("<div class='row form-group col-md-12'><p>" + issue.body + "</p></div>")
+        modal.modal('toggle');
+    });
 
 });
